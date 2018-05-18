@@ -6,7 +6,10 @@ defmodule HidapiRs.MixProject do
       app: :hidapi_rs,
       version: "0.1.0",
       elixir: "~> 1.6",
-      start_permanent: Mix.env() == :prod,
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      compilers: [:rustler] ++ Mix.compilers,
+      rustler_crates: rustler_crates(),
       deps: deps()
     ]
   end
@@ -26,4 +29,16 @@ defmodule HidapiRs.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
   end
+
+  defp rustler_crates do
+    [
+      io: [
+        path: "native/hidapi",
+        mode: rustc_mode(Mix.env)
+      ]
+    ]
+  end
+
+  defp rustc_mode(:prod), do: :release
+  defp rustc_mode(_), do: :debug
 end
