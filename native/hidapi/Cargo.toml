@@ -12,3 +12,4 @@ crate-type = ["dylib"]
 rustler = { git = "https://github.com/hansihe/rustler", branch = "remove_nif_from_types"}
 rustler_codegen = { git = "https://github.com/hansihe/rustler", branch = "remove_nif_from_types"}
 lazy_static = "1.0.0"
+hidapi = "0.4.1"
